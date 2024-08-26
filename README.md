@@ -1,6 +1,6 @@
 # README
 
-This is the reproduction code for
+This is the reproduction code for https://github.com/resque/resque-unique_at_runtime/issues/194
 
 ## Setup
 
@@ -10,7 +10,7 @@ This is the reproduction code for
 
 - bundle exec foreman s
 - bundle exec rails c
-  - `500.times { TheWorker.perform_async }`
+  - `5000.times { TheWorker.perform_async }`
 - `tail -F log/development.log | grep ERROR`
 
 After a while, the following log output will appear:
