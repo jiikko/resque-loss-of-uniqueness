@@ -1,24 +1,32 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the reproduction code for
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+- bundle install
 
-* System dependencies
+## How to Run
 
-* Configuration
+- bundle exec foreman s
+- bundle exec rails c
+  - `500.times { TheWorker.perform_async }`
+- `tail -F log/development.log | grep ERROR`
 
-* Database creation
+After a while, the following log output will appear:
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+E, [2024-08-26T16:22:30.398166 #19015] ERROR -- : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.398233 #19015] ERROR -- : !!!!!!!!Failed to control concurrency!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.398300 #19015] ERROR -- : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.412045 #19016] ERROR -- : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.412103 #19016] ERROR -- : !!!!!!!!Failed to control concurrency!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.412167 #19016] ERROR -- : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.425528 #19017] ERROR -- : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.425580 #19017] ERROR -- : !!!!!!!!Failed to control concurrency!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.425634 #19017] ERROR -- : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.441566 #19018] ERROR -- : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.441626 #19018] ERROR -- : !!!!!!!!Failed to control concurrency!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.441691 #19018] ERROR -- : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+E, [2024-08-26T16:22:30.454611 #19019] ERROR -- : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+```

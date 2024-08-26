@@ -7,19 +7,22 @@ class TheWorker < ApplicationWorker
   include Resque::Plugins::UniqueAtRuntime
 
   def perform
+    Resque.logger.info("start")
     File.open("Gemfile", "r") do |file|
-      Rails.logger.info "ファイルをロックできるか確認します"
+      Rails.logger.info "Checking if the file can be locked"
 
       if file.flock(File::LOCK_EX | File::LOCK_NB)
         sleep 0.1
         file.flock(File::LOCK_UN)
-        Rails.logger.info "ファイルをアンロックしました"
+        Rails.logger.info "File has been unlocked"
         file.close
       else
-        Rails.logger.info "同時実行の制御に失敗しています!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11"
+        Rails.logger.error "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        Rails.logger.error "!!!!!!!!Failed to control concurrency!!!!!!!!!!!!!!!!!!!!!!!"
+        Rails.logger.error "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
       end
     end
 
-    raise "意味はないけどエラーにさせる"
+    raise
   end
 end
