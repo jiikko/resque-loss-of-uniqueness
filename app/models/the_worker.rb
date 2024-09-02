@@ -6,6 +6,8 @@ class TheWorker < ApplicationWorker
 
   include Resque::Plugins::UniqueAtRuntime
 
+  @queue = :normal
+
   def perform
     Resque.logger.info("start")
     File.open("Gemfile", "r") do |file|

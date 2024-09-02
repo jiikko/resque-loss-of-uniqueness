@@ -9,8 +9,6 @@ This is the reproduction code for https://github.com/resque/resque-unique_at_run
 ## How to Run
 
 - bundle exec foreman s
-- bundle exec rails c
-  - `5000.times { TheWorker.perform_async }`
 - `tail -F log/development.log | grep ERROR`
 
 ```
@@ -76,7 +74,8 @@ D, [2024-08-26T16:22:37.054009 #19099] DEBUG -- : [R-UAR] check passed will perf
 I, [2024-08-26T16:22:37.054283 #19099]  INFO -- : Checking if the file can be locked
 ```
 
-After a while, the following log output will appear:
+If you reproduce this, the following output will appear in about 10 minutes:
+
 
 ```
 E, [2024-08-26T16:22:30.398166 #19015] ERROR -- : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
